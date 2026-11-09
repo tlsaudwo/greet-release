@@ -3,9 +3,12 @@
 import sys
 
 
-def greet(name: str) -> str:
-    """Return a greeting for the supplied name."""
-    return f"Hello, {name}!"
+def greet(name: str, punctuation: str = "!") -> str:
+    """Return a greeting; blank names use world and punctuation is optional."""
+    # Check for blank input without changing nonblank names.
+    if not name.strip():
+        name = "world"
+    return f"Hello, {name}{punctuation}"
 
 
 def main() -> int:
@@ -19,5 +22,15 @@ def test_greet():
     assert greet("Hee") == "Hello, Hee!"
 
 
+def test_greet_blank():
+    assert greet(" ") == "Hello, world!"
+    assert greet("") == "Hello, world!"
+
+
+def test_greet_punctuation():
+    assert greet("Hee", ".") == "Hello, Hee."
+
+
+# Importing this module defines functions; direct execution calls main.
 if __name__ == "__main__":
     raise SystemExit(main())
